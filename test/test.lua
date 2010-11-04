@@ -1,7 +1,7 @@
 require "luarocks.require"
-local SS = require "StackTracePlus"
+local STP = require "StackTracePlus"
 
-debug.traceback = SS.stacktrace
+debug.traceback = STP.stacktrace
 
 function f(str, tb, ...)
 	local g = function(fun)
