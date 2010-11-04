@@ -63,6 +63,7 @@ local m_known_functions = {
 	[load] = "load",
 	[error] = "error",
 	[loadfile] = "loadfile",
+	-- TODO: add table.* etc functions
 }
 
 local m_user_known_functions = {}
@@ -165,6 +166,8 @@ local function DumpLocals(level, message)
 		elseif type(value) == "table" then
 			if m_known_tables[value] then
 				message:add_f("%s%s = %s\r\n", prefix, name, m_known_tables[value])
+			elseif m_user_known_tables[value] then
+				message:add_f("%s%s = %s\r\n", prefix, name, m_user_known_tables[value])
 			else
 				local txt = "{"
 				for k,v in pairs(value) do
@@ -179,7 +182,7 @@ local function DumpLocals(level, message)
 			end
 		elseif type(value) == "function" then
 			local info = debug_getinfo(value, "nS")
-			local fun_name = info.name or m_known_functions[value]
+			local fun_name = info.name or m_known_functions[value] or m_user_known_functions[value]
 			if info.what == "C" then
 				message:add_f("%s%s = C %s\r\n", prefix, name, (fun_name and ("function: " .. fun_name) or tostring(value)))
 			else
@@ -256,7 +259,7 @@ Stack Traceback
 		elseif info.what == "C" then
 			--print(info.namewhat, info.name)
 			--for k,v in pairs(info) do print(k,v, type(v)) end
-			local function_name = info.name or m_known_functions[info.func] or tostring(info.func)
+			local function_name = info.name or m_known_functions[info.func] or m_user_known_functions[value] or tostring(info.func)
 			message:add_f("(%d) %s C function '%s'\r\n", start_level, info.namewhat, function_name)
 			--message:add_f("%s%s = C %s\r\n", prefix, name, (m_known_functions[value] and ("function: " .. m_known_functions[value]) or tostring(value)))
 		elseif info.what == "tail" then
@@ -317,6 +320,5 @@ function _M.add_known_function(fun, description)
 	end
 	m_user_known_functions[fun] = description
 end
-
 
 return _M
