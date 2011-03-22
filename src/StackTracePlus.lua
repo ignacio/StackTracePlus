@@ -94,9 +94,9 @@ local function ParseLine(line)
 	match = line:match("%s*function%s*%(")
 	if match then
 		--print("+++++++++++++function2", match)
-		return "(anonymous)"
+		return match
 	end
-	return line
+	return "(anonymous)"
 end
 
 -- Private:
