@@ -91,10 +91,10 @@ local function ParseLine(line)
 		--print("++++++++++++local func", match)
 		return match
 	end
-	match = line:match("%s*function%s*%(")
+	match = line:match("%s*function%s*%(")	-- this is an anonymous function
 	if match then
 		--print("+++++++++++++function2", match)
-		return match
+		return "(anonymous)"
 	end
 	return "(anonymous)"
 end
