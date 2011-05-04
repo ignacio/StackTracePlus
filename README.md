@@ -34,19 +34,21 @@ you'll get
 
 StackTracePlus can be used as a replacement for `debug.traceback`, as an `xpcall` error handler or even from C code.
 
-    local STP = require "StackTracePlus"
-    
-    debug.traceback = STP.stacktrace
-    function test()
-    	local s = "this is a string"
-    	local n = 42
-    	local t = { foo = "bar" }
-    	local co = coroutine
-    	local cr = coroutine.create
-    	
-    	error("an error")
-    end
-    test()
+```lua
+local STP = require "StackTracePlus"
+
+debug.traceback = STP.stacktrace
+function test()
+	local s = "this is a string"
+	local n = 42
+	local t = { foo = "bar" }
+	local co = coroutine
+	local cr = coroutine.create
+	
+	error("an error")
+end
+test()
+```
 
 That script will output:
 
@@ -70,26 +72,28 @@ That script will output:
 
 You can also make STP aware of your own tables and functions by calling *add_known_function* and *add_known_table*.
 
-    local STP = require "StackTracePlus"
-    
-    debug.traceback = STP.stacktrace
-    local my_table = {
-        f = function() end
-    }
-    function my_function()
-    end
-    
-    function test(data, func)
-    	local s = "this is a string"
-    	
-    	error("an error")
-    end
-    
-    STP.add_known_table(my_table, "A description for my_table")
-    STP.add_known_function(my_function, "A description for my_function")
-    
-    test( my_table, my_function )
+```lua
+local STP = require "StackTracePlus"
+
+debug.traceback = STP.stacktrace
+local my_table = {
+	f = function() end
+}
+function my_function()
+end
+
+function test(data, func)
+	local s = "this is a string"
 	
+	error("an error")
+end
+
+STP.add_known_table(my_table, "A description for my_table")
+STP.add_known_function(my_function, "A description for my_function")
+
+test( my_table, my_function )
+```
+
 Will output:
 
     lua5.1: ..\test\example2.lua:13: an error
