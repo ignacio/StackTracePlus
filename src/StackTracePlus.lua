@@ -171,7 +171,7 @@ local function DumpLocals(level, message)
 			else
 				local txt = "{"
 				for k,v in pairs(value) do
-					txt = txt..k..":"..tostring(v)
+					txt = txt..tostring(k)..":"..tostring(v)
 					if #txt > 70 then
 						txt = txt.." (more...)"
 						break
