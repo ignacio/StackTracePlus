@@ -1,8 +1,8 @@
 package = "StackTracePlus"
 version = "0.1.0-1"
 source = {
-	url = "https://github.com/ignacio/StackTracePlus/archive/StackTracePlus-0.1.0-1.tar.gz",
-	dir = "StackTracePlus-StackTracePlus-0.1.0-1"
+	url = "https://github.com/ignacio/StackTracePlus/archive/0.1.0-1.tar.gz",
+	dir = "StackTracePlus-0.1.0-1"
 }
 description = {
 	summary = "StackTracePlus provides enhanced stack traces for Lua",
