@@ -1,0 +1,12 @@
+language: erlang
+
+env:
+  - LUA=""
+
+install:
+  - sudo apt-get install luarocks
+  - sudo luarocks install lunit
+
+script: 
+  - cd unittest
+  - lua5.1 run.lua

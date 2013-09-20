@@ -1,5 +1,7 @@
 # StackTracePlus #
 
+[![Build Status](https://travis-ci.org/ignacio/StackTracePlus.png?branch=master)](https://travis-ci.org/ignacio/StackTracePlus)
+
 StackTracePlus provides enhanced stack traces for Lua.
 
 StackTracePlus can be used as a replacement for debug.traceback. It gives detailed information about locals, tries to guess 
