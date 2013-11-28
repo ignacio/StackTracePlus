@@ -343,7 +343,7 @@ Stack Traceback
 		elseif info.what == "C" then
 			--print(info.namewhat, info.name)
 			--for k,v in pairs(info) do print(k,v, type(v)) end
-			local function_name = info.name or m_known_functions[info.func] or m_user_known_functions[value] or tostring(info.func)
+			local function_name = m_user_known_functions[info.func] or m_known_functions[info.func] or info.name or tostring(info.func)
 			dumper:add_f("(%d) %s C function '%s'\r\n", level_to_show, info.namewhat, function_name)
 			--dumper:add_f("%s%s = C %s\r\n", prefix, name, (m_known_functions[value] and ("function: " .. m_known_functions[value]) or tostring(value)))
 		elseif info.what == "tail" then
@@ -353,17 +353,15 @@ Stack Traceback
 			dumper:DumpLocals(level)
 		elseif info.what == "Lua" then
 			local source = info.short_src
-			local function_name
+			local function_name = m_user_known_functions[info.func] or m_known_functions[info.func] or info.name
 			if source:sub(2, 7) == "string" then
 				source = source:sub(9)
 			end
 			local was_guessed = false
-			if not info.name then
+			if not function_name then
 				--for k,v in pairs(info) do print(k,v, type(v)) end
 				function_name = GuessFunctionName(info)
 				was_guessed = true
-			else
-				function_name = info.name
 			end
 			-- test if we have a file name
 			local function_type = (info.namewhat == "") and "function" or info.namewhat
