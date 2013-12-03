@@ -90,7 +90,10 @@ end
 
 local m_user_known_functions = {}
 
---local m_found_files = {}	-- aca armaria un cache de archivos encontrados, si vale la pena
+local function safe_tostring (value)
+	local ok, err = pcall(tostring, value)
+	if ok then return err else return ("<failed to get printable value>: '%s'"):format(err) end
+end
 
 -- Private:
 -- Parses a line, looking for possible function definitions (in a very naïve way) 
@@ -233,7 +236,7 @@ function Dumper:DumpLocals (level)
 		elseif type(value) == "string" then
 			self:add_f("%s%s = string: %q\r\n", prefix, name, value)
 		elseif type(value) == "userdata" then
-			self:add_f("%s%s = %s\r\n", prefix, name, tostring(value))
+			self:add_f("%s%s = %s\r\n", prefix, name, safe_tostring(value))
 		elseif type(value) == "nil" then
 			self:add_f("%s%s = nil\r\n", prefix, name)
 		elseif type(value) == "table" then
@@ -244,14 +247,14 @@ function Dumper:DumpLocals (level)
 			else
 				local txt = "{"
 				for k,v in pairs(value) do
-					txt = txt..tostring(k)..":"..tostring(v)
+					txt = txt..safe_tostring(k)..":"..safe_tostring(v)
 					if #txt > 70 then
 						txt = txt.." (more...)"
 						break
 					end
 					if next(value, k) then txt = txt..", " end
 				end
-				self:add_f("%s%s = %s  %s\r\n", prefix, name, tostring(value), txt.."}")
+				self:add_f("%s%s = %s  %s\r\n", prefix, name, safe_tostring(value), txt.."}")
 			end
 		elseif type(value) == "function" then
 			local info = self.getinfo(value, "nS")
@@ -311,9 +314,9 @@ function _M.stacktrace(thread, message, level)
 			else
 				dumper:add(",\r\n  ")
 			end
-			dumper:add(tostring(k))
+			dumper:add(safe_tostring(k))
 			dumper:add(": ")
-			dumper:add(tostring(v))
+			dumper:add(safe_tostring(v))
 		end
 		dumper:add("\r\n}")
 		original_error = dumper:concat_lines()
