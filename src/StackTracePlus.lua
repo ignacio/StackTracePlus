@@ -15,7 +15,9 @@ local string_gmatch = string.gmatch
 local string_sub = string.sub
 local table_concat = table.concat
 
-local _M = {}
+local _M = {
+	max_tb_output_len = 70	-- controls the maximum length of the 'stringified' table before cutting with ' (more...)'
+}
 
 -- this tables should be weak so the elements in them won't become uncollectable
 local m_known_tables = { [_G] = "_G (global table)" }
@@ -248,7 +250,7 @@ function Dumper:DumpLocals (level)
 				local txt = "{"
 				for k,v in pairs(value) do
 					txt = txt..safe_tostring(k)..":"..safe_tostring(v)
-					if #txt > 70 then
+					if #txt > _M.max_tb_output_len then
 						txt = txt.." (more...)"
 						break
 					end
