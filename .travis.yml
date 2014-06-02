@@ -25,8 +25,7 @@ before_install:
   - cd $LUAROCKS_BASE
   - ./configure
     --lua-version=$LUA_VER --lua-suffix=$LUA_SFX --with-lua-include="$LUA_INCDIR"
-  - sudo make
-  - sudo make install
+  - make build && sudo make install
   - cd $TRAVIS_BUILD_DIR
 
 install:
