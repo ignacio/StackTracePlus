@@ -1,6 +1,11 @@
 local STP = require "StackTracePlus"
+local lunit = require "lunitx"
 
-module(..., lunit.testcase, package.seeall)
+if _VERSION >= "Lua 5.2" then
+    _ENV = lunit.module("simple","seeall")
+else
+    module( ..., package.seeall, lunit.testcase )
+end
 
 function testLuaModule()
 	local f = function()
