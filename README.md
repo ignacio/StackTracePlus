@@ -2,6 +2,8 @@
 
 [![Build Status](https://travis-ci.org/ignacio/StackTracePlus.png?branch=master)](https://travis-ci.org/ignacio/StackTracePlus)
 
+[![Coverage Status](https://coveralls.io/repos/github/ignacio/StackTracePlus/badge.svg?branch=master)](https://coveralls.io/github/ignacio/StackTracePlus?branch=master)
+
 StackTracePlus provides enhanced stack traces for [Lua 5.1, Lua 5.2, Lua 5.3][1] and [LuaJIT][2].
 
 StackTracePlus can be used as a replacement for debug.traceback. It gives detailed information about locals, tries to guess
