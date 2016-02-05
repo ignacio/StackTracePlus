@@ -13,6 +13,7 @@ before_install:
   - pip install hererocks
   - hererocks lua_install --luarocks ^ --$LUA --compat none
   - export PATH=$PATH:$PWD/lua_install/bin
+  - luarocks install Lua-cURL --server=https://luarocks.org/dev
   - luarocks install luacov
   - luarocks install luacov-coveralls
 
