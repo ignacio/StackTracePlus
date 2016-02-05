@@ -13,10 +13,17 @@ before_install:
   - pip install hererocks
   - hererocks lua_install --luarocks ^ --$LUA --compat none
   - export PATH=$PATH:$PWD/lua_install/bin
+  - luarocks install luacov
+  - luarocks install luacov-coveralls
 
 install:
   - luarocks install lunitx
 
 script: 
   - cd unittest
-  - lua run.lua
+  - lua -lluacov run.lua
+
+after_success:
+  - coveralls -b .. -r .. -i ./src --dump c.report.json
+  - luacov-coveralls -j c.report.json -v
+  
