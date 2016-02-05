@@ -25,4 +25,5 @@ script:
   - lua -lluacov run.lua
 
 after_success:
-  - luacov-coveralls -v -r .. -e ../lua_install
+  - luacov-coveralls -v -r .. -e ../lua_install -o test.json
+  - cat test.json
