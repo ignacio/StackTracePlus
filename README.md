@@ -127,3 +127,4 @@ If you don't want to use LuaRocks, just copy StackTracePlus.lua to Lua's path.
 [1]: http://www.lua.org/
 [2]: http://luajit.org/
 [3]: http://luarocks.org/
+
