@@ -13,8 +13,6 @@ before_install:
   - pip install hererocks
   - hererocks lua_install --luarocks ^ --$LUA --compat none
   - export PATH=$PATH:$PWD/lua_install/bin
-  - luarocks install luasocket 3.0rc1-2
-  - luarocks install luasec --server=https://luarocks.org/manifests/ignacio OPENSSL_LIBDIR=/usr/lib/x86_64-linux-gnu
   - luarocks install luacov
   - luarocks install luacov-coveralls
 
@@ -26,5 +24,4 @@ script:
   - lua -lluacov run.lua
 
 after_success:
-  - luacov-coveralls -v -r .. -e ../lua_install -o test.json
-  - cat test.json
+  - luacov-coveralls -v -r .. -e ../lua_install
