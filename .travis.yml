@@ -14,7 +14,7 @@ before_install:
   - hererocks lua_install --luarocks ^ --$LUA --compat none
   - export PATH=$PATH:$PWD/lua_install/bin
   - luarocks install luacov
-  - luarocks install luacov-coveralls --server=https://luarocksorg/dev
+  - luarocks install luacov-coveralls --server=https://luarocks.org/dev
 
 install:
   - luarocks install lunitx
