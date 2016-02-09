@@ -143,7 +143,7 @@ local function GuessFunctionName(info)
 			return "?"
 		end
 		local line
-		for i = 1, info.linedefined do
+		for _ = 1, info.linedefined do
 			line = file:read("*l")
 		end
 		if not line then

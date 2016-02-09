@@ -13,6 +13,7 @@ before_install:
   - pip install hererocks
   - hererocks lua_install --luarocks ^ --$LUA --compat none
   - export PATH=$PATH:$PWD/lua_install/bin
+  - luarocks install luacheck
   - luarocks install luacov
   - luarocks install luacov-coveralls --server=https://luarocks.org/dev
 
@@ -20,6 +21,7 @@ install:
   - luarocks install lunitx
 
 script:
+  - luacheck rockspecs/stacktraceplus-git-1.rockspec
   - cd unittest
   - lua -lluacov run.lua
 

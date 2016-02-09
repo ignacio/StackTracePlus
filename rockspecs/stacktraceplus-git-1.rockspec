@@ -1,5 +1,5 @@
 package = "StackTracePlus"
-version = "sscm-1"
+version = "git-1"
 source = {
 	url = "git://github.com/ignacio/StackTracePlus.git",
 	branch = "master"
