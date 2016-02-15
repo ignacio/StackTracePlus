@@ -1,6 +1,6 @@
 language: python # Need python environment for pip
 
-sudo: false # Use container-based infrastructure
+sudo: false  # Use container-based infrastructure
 
 env:
   - LUA="lua=5.1"
