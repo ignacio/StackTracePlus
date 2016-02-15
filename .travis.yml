@@ -14,7 +14,7 @@ before_install:
   - hererocks lua_install --luarocks ^ --$LUA --compat none
   - export PATH=$PATH:$PWD/lua_install/bin
   - luarocks install luacov
-  - luarocks install cjson
+  - luarocks install lua-cjson
   - luarocks install luafilesystem
   - luarocks install lua-path
   - luarocks install luacov-coveralls --server=https://luarocks.org/dev --deps-mode=none
