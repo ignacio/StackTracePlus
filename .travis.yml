@@ -28,3 +28,4 @@ script:
 
 after_success:
   - luacov-coveralls -v -r .. -e ../lua_install
+
