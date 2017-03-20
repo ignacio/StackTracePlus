@@ -77,7 +77,7 @@ That script will output (only with Lua 5.1):
 if not package.loaded.StackTracePlus then
 	local STP = require 'StackTracePlus'
 	debug.traceback = STP.stacktrace
-	assert(--rethrows errpr
+	assert(--rethrows error
 		xpcall(--calls main function
 			debug.getinfo( 1 ).func,--retrieves main function from call stack
 			STP.stacktrace, ... ))--passes through all arguments (may not work with 5.1, should work with LuaJIT)
