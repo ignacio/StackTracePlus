@@ -71,6 +71,30 @@ That script will output (only with Lua 5.1):
     (5) main chunk of file 'example.lua' at line 14
     (6)  C function 'function: 00637B30'
 
+### Usage in Lua 5.2 and newer
+*(without having to wrap the main function)*
+```
+if not package.loaded.StackTracePlus then
+	local STP = require 'StackTracePlus'
+	debug.traceback = STP.stacktrace
+	assert(--rethrows error
+		xpcall(--calls main function
+			debug.getinfo( 1 ).func,--retrieves main function from call stack
+			STP.stacktrace, ... ))--passes through all arguments (may not work with 5.1, should work with LuaJIT)
+	os.exit( true, true )--terminate, so control flow won't move on to running the rest of the main function again (we already ran that)
+end
+function test()
+	local s = "this is a string"
+	local n = 42
+	local t = { foo = "bar" }
+	local co = coroutine
+	local cr = coroutine.create
+	
+	error("an error")
+end
+test()
+```
+
 **StackTracePlus** is aware of the usual Lua libraries, like *coroutine*, *table*, *string*, *io*, etc and functions like
 *print*, *pcall*, *assert*, and so on.
 
