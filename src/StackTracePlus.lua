@@ -39,12 +39,14 @@ add_known_module("coroutine", "coroutine module")
 
 -- lua5.2
 add_known_module("bit32", "bit32 module")
--- luajit
-add_known_module("bit", "bit module")
-add_known_module("jit", "jit module")
--- lua5.3
-if _VERSION >= "Lua 5.3" then
-	add_known_module("utf8", "utf8 module")
+if not _VERSION:match("Luaj") then
+	-- luajit
+	add_known_module("bit", "bit module")
+	add_known_module("jit", "jit module")
+	-- lua5.3
+	if _VERSION >= "Lua 5.3" then
+		add_known_module("utf8", "utf8 module")
+	end
 end
 
 
@@ -102,7 +104,7 @@ local function safe_tostring (value)
 end
 
 -- Private:
--- Parses a line, looking for possible function definitions (in a very naïve way) 
+-- Parses a line, looking for possible function definitions (in a very naive way)
 -- Returns '(anonymous)' if no function name was found in the line
 local function ParseLine(line)
 	assert(type(line) == "string")
@@ -290,7 +292,7 @@ end
 -- Collects a detailed stack trace, dumping locals, resolving function names when they're not available, etc.
 -- This function is suitable to be used as an error handler with pcall or xpcall
 --
--- @param thread An optional thread whose stack is to be inspected (defaul is the current thread)
+-- @param thread An optional thread whose stack is to be inspected (default is the current thread)
 -- @param message An optional error string or object.
 -- @param level An optional number telling at which level to start the traceback (default is 1)
 --
