@@ -240,7 +240,13 @@ function Dumper:DumpLocals (level)
 		elseif type(value) == "boolean" then
 			self:add_f("%s%s = boolean: %s\r\n", prefix, name, tostring(value))
 		elseif type(value) == "string" then
-			self:add_f("%s%s = string: %q\r\n", prefix, name, value)
+			local v = value
+            if #value > _M.max_str_output_len then
+                v = string.format("%q ... (truncated, %d bytes)", v:sub(1, _M.max_str_output_len), #v)
+            else
+                v = string.format("%q", v)
+            end
+			self:add_f("%s%s = string: %s\r\n", prefix, name, v)
 		elseif type(value) == "userdata" then
 			self:add_f("%s%s = %s\r\n", prefix, name, safe_tostring(value))
 		elseif type(value) == "nil" then
